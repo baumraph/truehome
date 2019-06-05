@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="utf-8">
-    <title>Flask Parent Template</title>
+    <title>TrueHome</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/template.css') }}">
@@ -13,49 +13,23 @@
     <script src="{{ url_for('static', filename='js/template.js') }}"></script>
 </head>
 <body>
-    <div class="card bg-light mb-3" style="max-width: 20rem;">
-        <div class="card-header">Temperature</div>
-        <div class="card-body">
-            <p class="card-text">
-                <table class="card-table">
-                    <tr>
-                        <td class="card-table-text">Living Room</td>
-                        <td class="card-table-value">25.3 °C</td>
-                    </tr>
-                    <tr>
-                        <td class="card-table-text">Bathroom</td>
-                        <td class="card-table-value">26.8 °C</td>
-                    </tr>
-                    <tr>
-                        <td class="card-table-text">Balcony</td>
-                        <td class="card-table-value">24.1 °C</td>
-                    </tr>
-                </table>
-            </p>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item {{ 'active' if active_page == 'home' else '' }}">
+                    <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                </li>
+                <li class="nav-item {{ 'active' if active_page == 'temperature' else '' }}">
+                    <a class="nav-link" href="{{ url_for('temperature') }}">Temperature</a>
+                </li>
+                <li class="nav-item {{ 'active' if active_page == 'humidity' else '' }}">
+                    <a class="nav-link" href="{{ url_for('humidity') }}">Humidity</a>
+                </li>
+            </ul>
         </div>
+    </nav>
+    <div class="container-fluid">
+        {% block content %}{% endblock %}
     </div>
-    <div class="card bg-light mb-3" style="max-width: 20rem;">
-        <div class="card-header">Humidity</div>
-        <div class="card-body">
-            <p class="card-text">
-                <table class="card-table">
-                    <tr>
-                        <td class="card-table-text">Living Room</td>
-                        <td class="card-table-value">50 %</td>
-                    </tr>
-                    <tr>
-                        <td class="card-table-text">Bathroom</td>
-                        <td class="card-table-value">71 %</td>
-                    </tr>
-                    <tr>
-                        <td class="card-table-text">Balcony</td>
-                        <td class="card-table-value">43 %</td>
-                    </tr>
-                </table>
-            </p>
-        </div>
-    </div>
-    {% block content %}
-    {% endblock %}
 </body>
 </html>

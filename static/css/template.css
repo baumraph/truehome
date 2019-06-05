@@ -1,3 +1,7 @@
+.container-fluid {
+    padding: 15px;
+}
+
 .card-header {
     font-weight: bold;
 }

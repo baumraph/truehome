@@ -1,0 +1,14 @@
+{% extends "template.html" %}
+{% set active_page = "humidity" %}
+{% block content %}
+    <div class="card bg-light mb-3">
+        <div class="card-header">Humidity History</div>
+        <div class="card-body">
+            <div id="plot"></div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        Plotly.newPlot('plot', {{humidity | safe}}, plot_layout, { responsive: true });
+    </script>
+{% endblock %}
