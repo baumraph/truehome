@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Flask Tutorial</title>
+  </head>
+  <body>
+    {% extends "template.html" %}
+    {% block content %}
+    
+    <div class="card bg-light mb-3">
+      <div class="card-header">Temperature</div>
+      <div class="card-body">
+          <div id="myDiv"></div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      layout = {
+        xaxis: { 
+          gridcolor: '#444444',
+          tickformat: '%H:%M'
+        },
+        yaxis: { 
+          gridcolor: '#444444'
+        },
+        paper_bgcolor: 'rgb(0, 0, 0, 0)', 
+        plot_bgcolor: 'rgb(0, 0, 0, 0)',
+        font: { 
+          color: '#ffffff' 
+        },
+        legend: {
+          x: 0.5,
+          y: 1.0,
+          xanchor: 'center',
+          font: {
+            color: '#ffffff'
+          },
+          bgcolor: '#303030'
+        },
+        margin: {
+          l: 30,
+          r: 30,
+          b: 30,
+          t: 0,
+          pad: 4
+        }
+      }
+      Plotly.newPlot('myDiv', {{data | safe}}, layout, { responsive: true });
+    </script>
+    
+    {% endblock %}
+  </body>
+    
+</html>

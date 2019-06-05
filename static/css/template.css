@@ -1,0 +1,15 @@
+.card-header {
+    font-weight: bold;
+}
+
+.card-table {
+    width: 100%;
+}
+
+.card-table-text {
+    text-align: left;
+}
+
+.card-table-value {
+    text-align: right;
+}

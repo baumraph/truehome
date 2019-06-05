@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Flask Parent Template</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/template.css') }}">
+
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/plotly.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/template.js') }}"></script>
+</head>
+<body>
+    <div class="card bg-light mb-3" style="max-width: 20rem;">
+        <div class="card-header">Temperature</div>
+        <div class="card-body">
+            <p class="card-text">
+                <table class="card-table">
+                    <tr>
+                        <td class="card-table-text">Living Room</td>
+                        <td class="card-table-value">25.3 °C</td>
+                    </tr>
+                    <tr>
+                        <td class="card-table-text">Bathroom</td>
+                        <td class="card-table-value">26.8 °C</td>
+                    </tr>
+                    <tr>
+                        <td class="card-table-text">Balcony</td>
+                        <td class="card-table-value">24.1 °C</td>
+                    </tr>
+                </table>
+            </p>
+        </div>
+    </div>
+    <div class="card bg-light mb-3" style="max-width: 20rem;">
+        <div class="card-header">Humidity</div>
+        <div class="card-body">
+            <p class="card-text">
+                <table class="card-table">
+                    <tr>
+                        <td class="card-table-text">Living Room</td>
+                        <td class="card-table-value">50 %</td>
+                    </tr>
+                    <tr>
+                        <td class="card-table-text">Bathroom</td>
+                        <td class="card-table-value">71 %</td>
+                    </tr>
+                    <tr>
+                        <td class="card-table-text">Balcony</td>
+                        <td class="card-table-value">43 %</td>
+                    </tr>
+                </table>
+            </p>
+        </div>
+    </div>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
