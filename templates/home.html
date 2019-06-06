@@ -8,15 +8,16 @@
               <table class="card-table">
                   <tr>
                       <td class="card-table-text">Living Room</td>
-                      <td class="card-table-value">{{temperature.living_room}} °C</td>
+                      
+                      <td class="card-table-value">{{'%4.2f'| format(temperature.living_room|float)}} °C</td>
                   </tr>
                   <tr>
                       <td class="card-table-text">Bathroom</td>
-                      <td class="card-table-value">{{temperature.bathroom}} °C</td>
+                      <td class="card-table-value">{{'%4.2f'| format(temperature.bathroom|float)}} °C</td>
                   </tr>
                   <tr>
                       <td class="card-table-text">Balcony</td>
-                      <td class="card-table-value">{{temperature.balcony}} °C</td>
+                      <td class="card-table-value">{{'%4.2f'| format(temperature.balcony|float)}} °C</td>
                   </tr>
               </table>
           </p>
@@ -29,15 +30,15 @@
               <table class="card-table">
                   <tr>
                       <td class="card-table-text">Living Room</td>
-                      <td class="card-table-value">{{humidity.living_room}} %</td>
+                      <td class="card-table-value">{{'%2.0f'| format(humidity.living_room|float)}} %</td>
                   </tr>
                   <tr>
                       <td class="card-table-text">Bathroom</td>
-                      <td class="card-table-value">{{humidity.bathroom}} %</td>
+                      <td class="card-table-value">{{'%2.0f'| format(humidity.bathroom|float)}} %</td>
                   </tr>
                   <tr>
                       <td class="card-table-text">Balcony</td>
-                      <td class="card-table-value">{{humidity.balcony}} %</td>
+                      <td class="card-table-value">{{'%2.0f'| format(humidity.balcony|float)}} %</td>
                   </tr>
               </table>
           </p>

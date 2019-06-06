@@ -7,7 +7,6 @@ from devices.Xiaomi import Xiaomi_Temperature_Humidity
 
 
 observer = Observer('192.168.188.10', 'zigbee2mqtt')
-db = dataset.connect('sqlite:///dataset.db')
 
 
 # Setup logging
@@ -32,28 +31,18 @@ balcony_sensor = Xiaomi_Temperature_Humidity('zigbee2mqtt/Balcony Sensor')
 group_sensors = [living_room_sensor, bath_sensor, balcony_sensor]
 group_all = group_sensors
 
-
-def save_temperature(name, temperature):
-    logger.info('Save temperature of {}'.format(name))
-    db['temperature'].insert({
-        'name': name,
-        'temperature': temperature,
+def save_sensor_value(sensor_name, sensor_type, value):
+    db = dataset.connect('sqlite:///dataset.db')
+    db[sensor_type].insert({
+        'sensor': sensor_name,
+        'value': value,
         'timestamp': datetime.datetime.now()
     })
 
 
-def save_humidity(name, humidity):
-    logger.info('Save humidity of {}'.format(name))
-    db['humidity'].insert({
-        'name': name,
-        'humidity': humidity,
-        'timestamp': datetime.datetime.now()
-    })
-
-
-def save_sensor_data(name, sensor):
-    save_temperature(name, sensor.temperature())
-    save_humidity(name, sensor.humidity())
+def save_sensor_data(sensor_name, sensor):
+    save_sensor_value(sensor_name, 'temperature', sensor.temperature())
+    save_sensor_value(sensor_name, 'humidity', sensor.humidity())
 
 
 if __name__ == '__main__':

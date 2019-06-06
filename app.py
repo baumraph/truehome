@@ -7,129 +7,78 @@ import pandas as pd
 import numpy as np
 import datetime
 import dataset
+import time
 
 
 app = Flask(__name__)
 
 
-def get_temperature_history(title):
+def get_sensor_history(table, sensor):
     db = dataset.connect('sqlite:///dataset.db')
-    query = db['temperature'].find(
-        name = title.lower().replace(' ', '_'), 
+    query = db[table].find(
+        sensor = sensor,
         timestamp = { 'gt': datetime.datetime.now() - datetime.timedelta(days=1) }
     )
 
-    x = []
-    y = []
-    for row in query:
-        x.append(str(row['timestamp']))
-        y.append(row['temperature'])
+    data = list(map(lambda row: [str(row['timestamp']), row['value']], query))
+    x, y = zip(*data)
+    x, y = list(x), list(y)
 
-    data = {
-        'x': x,
-        'y': y,
-        'type': 'scatter',
-        'name': title
-    }
-    return data
+    return { 'x': x, 'y': y, 'type': 'scatter', 'name': sensor }
 
 
-def get_humidity_history(title):
+def get_sensor_value(table, sensor):
     db = dataset.connect('sqlite:///dataset.db')
-    query = db['humidity'].find(
-        name = title.lower().replace(' ', '_'), 
-        timestamp = { 'gt': datetime.datetime.now() - datetime.timedelta(days=1) }
-    )
-
-    x = []
-    y = []
-    for row in query:
-        x.append(str(row['timestamp']))
-        y.append(row['humidity'])
-
-    data = {
-        'x': x,
-        'y': y,
-        'type': 'scatter',
-        'name': title
-    }
-    return data
-
-
-def get_temperature(name):
-    db = dataset.connect('sqlite:///dataset.db')
-    query = db['temperature'].find(
-        name = name,
-        order_by = ['id'],
+    query = db[table].find(
+        sensor = sensor,
+        order_by = ['-id'],
         _limit = 1
     )
     rows = list(query)
+    print(rows)
     if len(rows) == 0:
-        return '?'
-    temperature = rows[0]['temperature']
-    return '{:4.2f}'.format(temperature)
-
-
-def get_humidity(name):
-    db = dataset.connect('sqlite:///dataset.db')
-    query = db['humidity'].find(
-        name = name,
-        order_by = ['id'],
-        _limit = 1
-    )
-    rows = list(query)
-    if len(rows) == 0:
-        return '?'
-    humidity = rows[0]['humidity']
-    return '{:2.0f}'.format(humidity)
+        return None
+    return rows[0]['value']
 
 
 @app.route('/')
 def home():
-    temperature = {
-        'living_room': get_temperature('living_room'),
-        'bathroom': get_temperature('bathroom'),
-        'balcony': get_temperature('balcony')
-    }
-
-    humidity = {
-        'living_room': get_humidity('living_room'),
-        'bathroom': get_humidity('bathroom'),
-        'balcony': get_humidity('balcony')
-    }
-
     return render_template(
         'home.html',
-        temperature = temperature,
-        humidity = humidity
+        temperature = {
+            'living_room': get_sensor_value('temperature', 'living_room'),
+            'bathroom': get_sensor_value('temperature', 'bathroom'),
+            'balcony': get_sensor_value('temperature', 'balcony')
+        },
+        humidity = {
+            'living_room': get_sensor_value('humidity', 'living_room'),
+            'bathroom': get_sensor_value('humidity', 'bathroom'),
+            'balcony': get_sensor_value('humidity', 'balcony')
+        }
     )
 
 
 @app.route('/temperature')
 def temperature():
-    temperature = [
-        get_temperature_history('Living Room'),
-        get_temperature_history('Bathroom'),
-        get_temperature_history('Balcony')
-    ]
-
     return render_template(
         'temperature.html', 
-        temperature = temperature
+        temperature = [
+            get_sensor_history('temperature', 'living_room'),
+            get_sensor_history('temperature', 'bathroom'),
+            get_sensor_history('temperature', 'balcony')
+        ]
     )
 
 
 @app.route('/humidity')
 def humidity():
-    humidity = [
-        get_humidity_history('Living Room'),
-        get_humidity_history('Bathroom'),
-        get_humidity_history('Balcony')
-    ]
-
     return render_template(
         'humidity.html', 
-        humidity = humidity
+        humidity = [
+            get_sensor_history('humidity', 'living_room'),
+            get_sensor_history('humidity', 'bathroom'),
+            get_sensor_history('humidity', 'balcony')
+        ]
     )
 
 
