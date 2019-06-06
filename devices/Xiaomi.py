@@ -99,7 +99,7 @@ class Xiaomi_Door_Window_Contact(MQTTDevice):
 
 class Xiaomi_Motion_Sensor(MQTTDevice):
     def __init__(self, topic):
-        MQTTDevice.__init__(self, 'MCCGQ01LM', topic, {
+        MQTTDevice.__init__(self, 'RTCGQ01LM', topic, {
             'occupancy': None,
             'battery': None,
             'voltage': None
