@@ -1,7 +1,7 @@
-from devices.MQTTDevice import MQTTDevice
+from mqtt_devices.MQTTDevice import MQTTDevice
 
 
-class Philips_Hue_Color(MQTTDevice):
+class Hue_Color(MQTTDevice):
     def __init__(self, topic, fn_publish):
         MQTTDevice.__init__(self, '9290012573A', topic, {
             'state': 'off',

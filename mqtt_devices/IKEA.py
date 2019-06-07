@@ -1,7 +1,7 @@
-from devices.MQTTDevice import MQTTDevice
+from mqtt_devices.MQTTDevice import MQTTDevice
 
 
-class IKEA_TRADFRI_LED(MQTTDevice):
+class TRADFRI_LED(MQTTDevice):
     def __init__(self, topic, fn_publish):
         MQTTDevice.__init__(self, 'LED1623G12', topic, {
             'state': 'off',

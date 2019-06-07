@@ -1,7 +1,7 @@
-from devices.MQTTDevice import MQTTDevice
+from mqtt_devices.MQTTDevice import MQTTDevice
 
 
-class Xiaomi_Switch(MQTTDevice):
+class Switch(MQTTDevice):
     def __init__(self, topic):
         MQTTDevice.__init__(self, 'WXKG01LM', topic, {
             'battery': None,
@@ -54,7 +54,7 @@ class Xiaomi_Switch(MQTTDevice):
         self._callbacks['long_release'] = fn
 
     
-class Xiaomi_Temperature_Humidity(MQTTDevice):
+class Temperature_Humidity_Sensor(MQTTDevice):
     def __init__(self, topic):
         MQTTDevice.__init__(self, 'WSDCGQ01LM', topic, {
             'temperature': None,
@@ -76,7 +76,7 @@ class Xiaomi_Temperature_Humidity(MQTTDevice):
         return self._payload['voltage']
 
 
-class Xiaomi_Door_Window_Contact(MQTTDevice):
+class Door_Window_Contact_Sensor(MQTTDevice):
     def __init__(self, topic):
         MQTTDevice.__init__(self, 'MCCGQ01LM', topic, {
             'contact': None,
@@ -84,11 +84,11 @@ class Xiaomi_Door_Window_Contact(MQTTDevice):
             'voltage': None
         })
 
-    def is_opened(self):
-        return self._payload['contact'] == 'false'
+    def is_open(self):
+        return not self._payload['contact']
 
     def is_closed(self):
-        return self._payload['contact'] == 'true'
+        return self._payload['contact']
 
     def battery(self):
         return self._payload['battery']
@@ -97,7 +97,7 @@ class Xiaomi_Door_Window_Contact(MQTTDevice):
         return self._payload['voltage']
 
 
-class Xiaomi_Motion_Sensor(MQTTDevice):
+class Motion_Sensor(MQTTDevice):
     def __init__(self, topic):
         MQTTDevice.__init__(self, 'RTCGQ01LM', topic, {
             'occupancy': None,

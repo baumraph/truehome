@@ -1,4 +1,5 @@
 import json
+import datetime
 
 
 class MQTTDevice:
@@ -7,6 +8,7 @@ class MQTTDevice:
         self._topic = topic
         self._payload = payload
         self._update = None
+        self._last_update = datetime.datetime(1970, 1, 1)
     
     def model(self):
         return self._model
@@ -19,9 +21,12 @@ class MQTTDevice:
             self._payload = payload
             if self._update:
                 self._update()
+            self._last_update = datetime.datetime.now()
         else:
             return json.dumps(self._payload)
 
     def on_update(self, fn):
         self._update = fn
     
+    def last_update(self):
+        return self._last_update
