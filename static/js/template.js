@@ -18,7 +18,7 @@ var plot_layout = {
         font: {
         color: '#ffffff'
         },
-        bgcolor: '#303030'
+        bgcolor: '#444444'
     },
     margin: {
         l: 30,
