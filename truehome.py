@@ -7,6 +7,7 @@ import time
 import devices
 import groups
 import lights
+import logic
 
 
 # Setup logging
@@ -21,20 +22,6 @@ fh.setFormatter(formatter)
 ch.setFormatter(formatter)
 logger.addHandler(fh)
 logger.addHandler(ch)
-
-
-def save_sensor_value(sensor_name, sensor_type, value):
-    db = dataset.connect('sqlite:///dataset.db')
-    db[sensor_type].insert({
-        'sensor': sensor_name,
-        'value': value,
-        'timestamp': datetime.datetime.now()
-    })
-
-
-def save_sensor_data(sensor_name, sensor):
-    save_sensor_value(sensor_name, 'temperature', sensor.temperature())
-    save_sensor_value(sensor_name, 'humidity', sensor.humidity())
 
 
 if __name__ == '__main__':
@@ -52,9 +39,9 @@ if __name__ == '__main__':
     devices.bed_switch.on_single_click(lambda: lights.toggle_scene(lights.LightScene.DIMMED))
     devices.bed_switch.on_double_click(lambda: lights.set_scene(lights.LightScene.LOVE))
 
-    devices.living_room_sensor.on_update(lambda: save_sensor_data('living_room', devices.living_room_sensor))
-    devices.bathroom_sensor.on_update(lambda: save_sensor_data('bathroom', devices.bathroom_sensor))
-    devices.balcony_sensor.on_update(lambda: save_sensor_data('balcony', devices.balcony_sensor))
+    devices.living_room_sensor.on_update(lambda: logic.save_sensor_data('living_room', devices.living_room_sensor))
+    devices.bathroom_sensor.on_update(lambda: logic.save_sensor_data('bathroom', devices.bathroom_sensor))
+    devices.balcony_sensor.on_update(lambda: logic.save_sensor_data('balcony', devices.balcony_sensor))
 
     # Run observer
     devices.observer.run()
