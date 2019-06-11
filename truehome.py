@@ -1,13 +1,11 @@
 import datetime
 import threading
 import dataset
-import threading
 import time
 import devices
 import groups
 import lights
 import logic
-
 
 
 if __name__ == '__main__':
@@ -28,6 +26,9 @@ if __name__ == '__main__':
     devices.living_room_sensor.on_update(lambda: logic.save_sensor_data('living_room', devices.living_room_sensor))
     devices.bathroom_sensor.on_update(lambda: logic.save_sensor_data('bathroom', devices.bathroom_sensor))
     devices.balcony_sensor.on_update(lambda: logic.save_sensor_data('balcony', devices.balcony_sensor))
+
+    devices.motion_sensor.on_update(logic.motion_sensor)
+    devices.front_door.on_update(logic.front_door)
 
     # Run observer
     devices.observer.run()

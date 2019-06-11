@@ -23,4 +23,4 @@ living_room_sensor = mqtt_devices.Xiaomi.Temperature_Humidity_Sensor('zigbee2mqt
 bathroom_sensor = mqtt_devices.Xiaomi.Temperature_Humidity_Sensor('zigbee2mqtt/Bath Sensor')
 balcony_sensor = mqtt_devices.Xiaomi.Temperature_Humidity_Sensor('zigbee2mqtt/Balcony Sensor')
 motion_sensor = mqtt_devices.Xiaomi.Motion_Sensor('zigbee2mqtt/Motion Sensor')
-front_door = mqtt_devices.Xiaomi.Door_Window_Contact_Sensor('zigbee2mqtt/Balcony Door')
+front_door = mqtt_devices.Xiaomi.Door_Window_Contact_Sensor('zigbee2mqtt/Front Door')

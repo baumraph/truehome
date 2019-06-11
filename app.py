@@ -3,8 +3,6 @@ from flask import Flask, render_template, redirect, url_for,request
 from flask import make_response
 import json
 import plotly
-import pandas as pd
-import numpy as np
 import datetime
 import dataset
 import time
