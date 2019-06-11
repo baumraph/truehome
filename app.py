@@ -19,6 +19,8 @@ def get_sensor_history(table, sensor):
     )
 
     data = list(map(lambda row: [str(row['timestamp']), row['value']], query))
+    if len(data) == 0:
+        return None
     x, y = zip(*data)
     x, y = list(x), list(y)
 
@@ -33,7 +35,6 @@ def get_sensor_value(table, sensor):
         _limit = 1
     )
     rows = list(query)
-    print(rows)
     if len(rows) == 0:
         return None
     return rows[0]['value']
