@@ -28,17 +28,15 @@ class Observer:
         self._client.publish(topic, payload)
 
     def _on_connect(self, client, userdata, flags, rc):
-        print('on_connect flags = {}'.format(rc))
+        pass
 
     def _on_diconnect(self, client, userdata, rc):
-        print('on_disconnect = {}'.format(rc))
+        pass
 
     def _on_subscribe(self, client, userdata, mid, granted_ops):
-        print('on_subscribe = {}'.format(mid))
+        pass
 
     def _on_message(self, client, userdata, msg):
-        print('on_message = {}'.format(msg.topic))
-
         if msg.topic in self._devices:
             payload = json.loads(msg.payload.decode('utf8'))
             self._devices[msg.topic].payload(payload)
