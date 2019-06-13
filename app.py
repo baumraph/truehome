@@ -6,6 +6,8 @@ import plotly
 import datetime
 import dataset
 import time
+import pyowm
+import config
 
 
 app = Flask(__name__)
@@ -40,6 +42,17 @@ def get_sensor_value(table, sensor):
     return rows[0]['value']
 
 
+def get_weather():
+    owm = pyowm.OWM(config.owm_api_key)
+    weather = owm.weather_at_place('Heidelberg,DE').get_weather()
+    return {
+        'status': weather.get_detailed_status(),
+        'temperature': weather.get_temperature('celsius')['temp'],
+        'humidity': weather.get_humidity(),
+        'wind': weather.get_wind()['speed']
+    }
+
+
 @app.route('/')
 def home():
     return render_template(
@@ -53,7 +66,8 @@ def home():
             'living_room': get_sensor_value('humidity', 'living_room'),
             'bathroom': get_sensor_value('humidity', 'bathroom'),
             'balcony': get_sensor_value('humidity', 'balcony')
-        }
+        },
+        weather = get_weather()
     )
 
 
