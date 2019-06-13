@@ -3,3 +3,4 @@ plotly
 pandas
 dataset
 paho-mqtt
+pyowm
