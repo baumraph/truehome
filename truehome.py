@@ -1,11 +1,129 @@
 import datetime
 import threading
-import dataset
 import time
 import devices
 import groups
-import lights
-import logic
+
+
+class Bedroom():
+    def __init__(self):
+        self.scene = 'OFF'
+
+        devices.switch_bedroom.on_on(self.set_scene_normal)
+        devices.switch_bedroom.on_off(self.set_scene_off)
+
+        devices.remote_bedroom.on_toggle(self.toggle)
+        devices.remote_bedroom.on_arrow_left_click(self.arrow)
+        devices.remote_bedroom.on_arrow_right_click(self.arrow)
+        devices.remote_bedroom.on_brightness_up_click(self.brightness_up)
+        devices.remote_bedroom.on_brightness_down_click(self.brightness_down)
+
+    def set_scene_normal(self):
+        self.scene = 'NORMAL'
+        devices.light_bedroom_top.color(0.475, 0.415)
+        devices.light_bedroom_top.brightness(254)
+        devices.light_bedroom_top.on()
+
+    def set_scene_red(self):
+        self.scene = 'RED'
+        devices.light_bedroom_top.color(0.72, 0.28)
+        devices.light_bedroom_top.brightness(254)
+        devices.light_bedroom_top.on()
+
+    def set_scene_off(self):
+        self.scene = 'OFF'
+        devices.light_bedroom_top.off()
+
+    def toggle(self):
+        if self.scene == 'OFF':
+            self.set_scene_normal()
+        elif self.scene == 'NORMAL':
+            self.set_scene_off()
+        elif self.scene == 'RED':
+            self.set_scene_off()
+
+    def arrow(self):
+        if self.scene == 'NORMAL':
+            self.set_scene_red()
+        elif self.scene == 'RED':
+            self.set_scene_normal()
+
+    def brightness_up(self):
+        b = devices.light_bedroom_top.brightness()
+        b = int(min(254, b + 254 / 10))
+        print('UP =', b)
+        devices.light_bedroom_top.brightness(b)
+
+    def brightness_down(self):
+        b = devices.light_bedroom_top.brightness()
+        b = int(max(0, b - 254 / 10))
+        print('DOWN =', b)
+        devices.light_bedroom_top.brightness(b)
+
+
+class LivingRoom():
+    def __init__(self):
+        self.scene = 'OFF'
+
+        devices.switch_living_room.on_on(self.set_scene_normal)
+        devices.switch_living_room.on_off(self.set_scene_off)
+
+        devices.remote_living_room.on_toggle(self.toggle)
+        devices.remote_living_room.on_arrow_left_click(self.arrow)
+        devices.remote_living_room.on_arrow_right_click(self.arrow)
+        devices.remote_living_room.on_brightness_up_click(self.brightness_up)
+        devices.remote_living_room.on_brightness_down_click(self.brightness_down)
+
+    def set_scene_normal(self):
+        self.scene = 'NORMAL'
+
+        devices.light_living_room_shelf.off()
+
+        devices.light_living_room_top.color(0.475, 0.415)
+        devices.light_living_room_top.on()
+
+    def set_scene_ambient(self):
+        self.scene = 'AMBIENT'
+        print('SCENE AMBIENT')
+        devices.light_living_room_top.color(0.72, 0.28)
+        devices.light_living_room_shelf.color(0.6, 0.28)
+
+        devices.light_living_room_top.on()
+        devices.light_living_room_shelf.on()
+
+    def set_scene_off(self):
+        self.scene = 'OFF'
+        print('SCENE OFF')
+        devices.light_living_room_top.off()
+        devices.light_living_room_shelf.off()
+
+    def toggle(self):
+        if self.scene == 'OFF':
+            self.set_scene_normal()
+        elif self.scene == 'NORMAL':
+            self.set_scene_off()
+        elif self.scene == 'AMBIENT':
+            self.set_scene_off()
+
+    def arrow(self):
+        if self.scene == 'NORMAL':
+            self.set_scene_ambient()
+        elif self.scene == 'AMBIENT':
+            self.set_scene_normal()
+
+    def brightness_up(self):
+        b = devices.light_living_room_top.brightness()
+        b = int(min(254, b + 254 / 10))
+        print('UP =', b)
+        devices.light_living_room_top.brightness(b)
+        devices.light_living_room_shelf.brightness(b)
+
+    def brightness_down(self):
+        b = devices.light_living_room_top.brightness()
+        b = int(max(0, b - 254 / 10))
+        print('DOWN =', b)
+        devices.light_living_room_top.brightness(b)
+        devices.light_living_room_shelf.brightness(b)
 
 
 if __name__ == '__main__':
@@ -13,22 +131,9 @@ if __name__ == '__main__':
     for device in groups.all:
         devices.observer.add_device(device)
 
-    # Register callbacks
-    devices.desk_switch.on_single_click(lambda: lights.toggle_scene(lights.LightScene.LEARN))
-    devices.desk_switch.on_double_click(lambda: lights.set_scene(lights.LightScene.RELAX))
-
-    devices.hall_switch.on_single_click(lambda: lights.toggle_scene(lights.LightScene.LEARN))
-    devices.hall_switch.on_double_click(lambda: lights.set_scene(lights.LightScene.RELAX))
-
-    devices.bed_switch.on_single_click(lambda: lights.toggle_scene(lights.LightScene.DIMMED))
-    devices.bed_switch.on_double_click(lambda: lights.set_scene(lights.LightScene.LOVE))
-
-    devices.living_room_sensor.on_update(lambda: logic.save_sensor_data('living_room', devices.living_room_sensor))
-    devices.bathroom_sensor.on_update(lambda: logic.save_sensor_data('bathroom', devices.bathroom_sensor))
-    devices.balcony_sensor.on_update(lambda: logic.save_sensor_data('balcony', devices.balcony_sensor))
-
-    devices.motion_sensor.on_update(logic.motion_sensor)
-    devices.front_door.on_update(logic.front_door)
+    # Create logic for each room
+    bedroom = Bedroom()
+    living_room = LivingRoom()
 
     # Run observer
     devices.observer.run()
