@@ -7,7 +7,8 @@ all = [
     devices.remote_living_room,
     devices.light_bedroom_top,
     devices.light_living_room_top,
-    devices.light_living_room_shelf
+    devices.light_living_room_shelf,
+    devices.plug_living_room
 ]
 
 # lights = [

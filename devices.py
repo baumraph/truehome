@@ -1,5 +1,6 @@
 import Observer
 import mqtt_devices.IKEA
+import mqtt_devices.OSRAM
 
 # Observer
 observer = Observer.Observer('192.168.188.20', 'zigbee2mqtt')
@@ -14,6 +15,9 @@ switch_bedroom = mqtt_devices.IKEA.TRADFRI_SWITCH('zigbee2mqtt/BRSwitch')
 remote_bedroom = mqtt_devices.IKEA.TRADFRI_REMOTE('zigbee2mqtt/BRRemote')
 switch_living_room = mqtt_devices.IKEA.TRADFRI_SWITCH('zigbee2mqtt/LRSwitch')
 remote_living_room = mqtt_devices.IKEA.TRADFRI_REMOTE('zigbee2mqtt/LRRemote')
+
+# Plugs
+plug_living_room = mqtt_devices.OSRAM.OSRAM_SMART_PLUG('zigbee2mqtt/LRPlug', observer.publish)
 
 # # Sensors
 # living_room_sensor = mqtt_devices.Xiaomi.Temperature_Humidity_Sensor('zigbee2mqtt/Living Room Sensor')

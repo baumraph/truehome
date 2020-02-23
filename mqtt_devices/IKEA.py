@@ -42,12 +42,10 @@ class TRADFRI_RGB_LED(MQTTDevice):
         self._publish = fn_publish
 
     def on(self):
-        print('ON')
         self._payload['state'] = 'on'
         self._publish('{}/set'.format(self._topic), '{"state": "on"}')
     
     def off(self):
-        print('OFF')
         self._payload['state'] = 'off'
         self._publish('{}/set'.format(self._topic), '{"state": "off"}')
 
