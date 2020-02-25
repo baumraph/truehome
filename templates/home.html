@@ -1,72 +1,73 @@
 {% extends "template.html" %}
 {% set active_page = "home" %}
 {% block content %}
-  <div class="card bg-light mb-3" style="max-width: 20rem;">
-      <div class="card-header">Weather</div>
-      <div class="card-body">
-            <p class="card-text">
-                <table class="card-table">
-                    <tr>
-                        <td class="card-table-text">Status</td>
-                        <td class="card-table-value">{{weather.status | safe}}</td>
-                    </tr>
-                    <tr>
-                        <td class="card-table-text">Temperature</td>
-                        <td class="card-table-value">{{'%4.2f'| format(weather.temperature|float)}} °C</td>
-                    </tr>
-                    <tr>
-                        <td class="card-table-text">Humidity</td>
-                        <td class="card-table-value">{{'%2.0f'| format(weather.humidity|float)}} %</td>
-                    </tr>
-                    <tr>
-                        <td class="card-table-text">Wind</td>
-                        <td class="card-table-value">{{'%2.0f'| format(weather.wind|float)}}</td>
-                    </tr>
-                </table>
-            </p>
-      </div>
-  </div>
-  <div class="card bg-light mb-3" style="max-width: 20rem;">
-      <div class="card-header">Temperature</div>
-      <div class="card-body">
-          <p class="card-text">
-              <table class="card-table">
-                  <tr>
-                      <td class="card-table-text">Living Room</td>
-                      
-                      <td class="card-table-value">{{'%4.2f'| format(temperature.living_room|float)}} °C</td>
-                  </tr>
-                  <tr>
-                      <td class="card-table-text">Bathroom</td>
-                      <td class="card-table-value">{{'%4.2f'| format(temperature.bathroom|float)}} °C</td>
-                  </tr>
-                  <tr>
-                      <td class="card-table-text">Balcony</td>
-                      <td class="card-table-value">{{'%4.2f'| format(temperature.balcony|float)}} °C</td>
-                  </tr>
-              </table>
-          </p>
-      </div>
-  </div>
-  <div class="card bg-light mb-3" style="max-width: 20rem;">
-      <div class="card-header">Humidity</div>
-      <div class="card-body">
-          <p class="card-text">
-              <table class="card-table">
-                  <tr>
-                      <td class="card-table-text">Living Room</td>
-                      <td class="card-table-value">{{'%2.0f'| format(humidity.living_room|float)}} %</td>
-                  </tr>
-                  <tr>
-                      <td class="card-table-text">Bathroom</td>
-                      <td class="card-table-value">{{'%2.0f'| format(humidity.bathroom|float)}} %</td>
-                  </tr>
-                  <tr>
-                      <td class="card-table-text">Balcony</td>
-                      <td class="card-table-value">{{'%2.0f'| format(humidity.balcony|float)}} %</td>
-                  </tr>
-              </table>
-          </p>
-      </div>
-  </div>
+<div class="card bg-light mb-3" style="max-width: 20rem;">
+    <div class="card-header">Weather</div>
+    <div class="card-body">
+        <p class="card-text">
+            <table class="card-table">
+                <tr>
+                    <td class="card-table-text">Status</td>
+                    <td class="card-table-value">{{weather.status | safe}}</td>
+                </tr>
+                <tr>
+                    <td class="card-table-text">Temperature</td>
+                    <td class="card-table-value">{{'%4.2f'| format(weather.temperature|float)}} °C</td>
+                </tr>
+                <tr>
+                    <td class="card-table-text">Humidity</td>
+                    <td class="card-table-value">{{'%2.0f'| format(weather.humidity|float)}} %</td>
+                </tr>
+                <tr>
+                    <td class="card-table-text">Wind</td>
+                    <td class="card-table-value">{{'%2.0f'| format(weather.wind|float)}}</td>
+                </tr>
+            </table>
+        </p>
+    </div>
+</div>
+
+<div class="card bg-light mb-3" style="max-width: 20rem; visibility: hidden;">
+    <div class="card-header">Temperature</div>
+    <div class="card-body">
+        <p class="card-text">
+            <table class="card-table">
+                <tr>
+                    <td class="card-table-text">Living Room</td>
+                    <td class="card-table-value">{{'%4.2f'| format(temperature.living_room|float)}} °C</td>
+                </tr>
+                <tr>
+                    <td class="card-table-text">Bathroom</td>
+                    <td class="card-table-value">{{'%4.2f'| format(temperature.bathroom|float)}} °C</td>
+                </tr>
+                <tr>
+                    <td class="card-table-text">Balcony</td>
+                    <td class="card-table-value">{{'%4.2f'| format(temperature.balcony|float)}} °C</td>
+                </tr>
+            </table>
+        </p>
+    </div>
+</div>
+
+<div class="card bg-light mb-3" style="max-width: 20rem; visibility: hidden;">
+    <div class="card-header">Humidity</div>
+    <div class="card-body">
+        <p class="card-text">
+            <table class="card-table">
+                <tr>
+                    <td class="card-table-text">Living Room</td>
+                    <td class="card-table-value">{{'%2.0f'| format(humidity.living_room|float)}} %</td>
+                </tr>
+                <tr>
+                    <td class="card-table-text">Bathroom</td>
+                    <td class="card-table-value">{{'%2.0f'| format(humidity.bathroom|float)}} %</td>
+                </tr>
+                <tr>
+                    <td class="card-table-text">Balcony</td>
+                    <td class="card-table-value">{{'%2.0f'| format(humidity.balcony|float)}} %</td>
+                </tr>
+            </table>
+        </p>
+    </div>
+</div>
 {% endblock %}
