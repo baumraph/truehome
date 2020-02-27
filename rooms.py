@@ -14,10 +14,10 @@ class Bedroom():
 
         devices.switch_bedroom.on_on(lambda: self.scene_handler.set_scene('ON'))
         devices.switch_bedroom.on_off(lambda: self.scene_handler.set_scene('OFF'))
+
         devices.remote_bedroom.on_arrow_left_click(lambda: self.scene_handler.prev_scene())
         devices.remote_bedroom.on_arrow_right_click(lambda: self.scene_handler.next_scene())
         devices.remote_bedroom.on_toggle(self.scene_handler.toggle)
-
         devices.remote_bedroom.on_brightness_up_click(self.brightness_up)
         devices.remote_bedroom.on_brightness_down_click(self.brightness_down)
     
@@ -41,15 +41,15 @@ class LivingRoom():
         self.scene_handler.add_scene(scenes.Scene_LR_WINDOW())
 
         devices.switch_living_room.on_on(lambda: self.scene_handler.set_scene('ON'))
+        devices.switch_living_room.on_off(self.all_off)
+
         devices.remote_living_room.on_arrow_left_click(lambda: self.scene_handler.prev_scene())
         devices.remote_living_room.on_arrow_right_click(lambda: self.scene_handler.next_scene())
         devices.remote_living_room.on_toggle(self.scene_handler.toggle)
-        devices.switch_living_room.on_off(self.all_off)
-
-        devices.remote_living_room.on_brightness_up_click(self.brightness_up)
-        devices.remote_living_room.on_brightness_down_click(self.brightness_down)
         devices.remote_living_room.on_arrow_left_hold(self.arrow_hold)
         devices.remote_living_room.on_arrow_right_hold(self.arrow_hold)
+        devices.remote_living_room.on_brightness_up_click(self.brightness_up)
+        devices.remote_living_room.on_brightness_down_click(self.brightness_down)
 
     def brightness_up(self):
         if self.scene_handler.get_scene() == 'ON' or self.scene_handler.get_scene() == 'AMBIENT':
