@@ -1,6 +1,7 @@
 from scenehandler import Scene
 import devices
 
+
 class Scene_LR_OFF(Scene):
     def __init__(self):
         Scene.__init__(self, 'OFF')
@@ -9,7 +10,6 @@ class Scene_LR_OFF(Scene):
         devices.light_living_room_top.off()
         devices.light_living_room_shelf.off()
         devices.plug_window.off()
-        devices.plug_shelf.off()
 
 
 class Scene_LR_ON(Scene):

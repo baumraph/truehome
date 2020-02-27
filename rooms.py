@@ -39,10 +39,10 @@ class LivingRoom():
         self.scene_handler.add_scene(scenes.Scene_LR_WINDOW())
 
         devices.switch_living_room.on_on(lambda: self.scene_handler.set_scene('ON'))
-        devices.switch_living_room.on_off(lambda: self.scene_handler.set_scene('OFF'))
         devices.remote_living_room.on_arrow_left_click(lambda: self.scene_handler.prev_scene())
         devices.remote_living_room.on_arrow_right_click(lambda: self.scene_handler.next_scene())
         devices.remote_living_room.on_toggle(self.scene_handler.toggle)
+        devices.switch_living_room.on_off(self.all_off)
 
         devices.remote_living_room.on_brightness_up_click(self.brightness_up)
         devices.remote_living_room.on_brightness_down_click(self.brightness_down)
@@ -68,3 +68,7 @@ class LivingRoom():
             devices.plug_shelf.on()
         else:
             devices.plug_shelf.off()
+
+    def all_off(self):
+        self.scene_handler.set_scene('OFF')
+        devices.plug_shelf.off()
