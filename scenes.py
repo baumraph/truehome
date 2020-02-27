@@ -31,7 +31,7 @@ class Scene_LR_AMBIENT(Scene):
 
     def run(self):
         devices.light_living_room_top.color(0.72, 0.28)
-        devices.light_living_room_shelf.color(0.6, 0.28)
+        devices.light_living_room_shelf.color(0.384, 0.174)
 
         devices.light_living_room_top.on()
         devices.light_living_room_shelf.on()
@@ -65,10 +65,27 @@ class Scene_BR_ON(Scene):
         devices.light_bedroom_top.on()
 
 
-class Scene_BR_AMBIENT(Scene):
+class Scene_BR_RED(Scene):
     def __init__(self):
-        Scene.__init__(self, 'AMBIENT')
+        Scene.__init__(self, 'RED')
 
     def run(self):
         devices.light_bedroom_top.color(0.72, 0.28)
+        devices.light_bedroom_top.on()
+
+class Scene_BR_PURPLE(Scene):
+    def __init__(self):
+        Scene.__init__(self, 'PURPLE')
+
+    def run(self):
+        devices.light_bedroom_top.color(0.384, 0.174)
+        devices.light_bedroom_top.on()
+
+
+class Scene_BR_BLUE(Scene):
+    def __init__(self):
+        Scene.__init__(self, 'BLUE')
+
+    def run(self):
+        devices.light_bedroom_top.color(0.157, 0.018)
         devices.light_bedroom_top.on()

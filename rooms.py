@@ -8,7 +8,9 @@ class Bedroom():
         self.scene_handler = SceneHanlder()
         self.scene_handler.add_scene(scenes.Scene_BR_OFF())
         self.scene_handler.add_scene(scenes.Scene_BR_ON())
-        self.scene_handler.add_scene(scenes.Scene_BR_AMBIENT())
+        self.scene_handler.add_scene(scenes.Scene_BR_RED())
+        self.scene_handler.add_scene(scenes.Scene_BR_PURPLE())
+        self.scene_handler.add_scene(scenes.Scene_BR_BLUE())
 
         devices.switch_bedroom.on_on(lambda: self.scene_handler.set_scene('ON'))
         devices.switch_bedroom.on_off(lambda: self.scene_handler.set_scene('OFF'))
