@@ -45,7 +45,9 @@ class LivingRoom():
         devices.remote_living_room.on_toggle(self.scene_handler.toggle)
 
         devices.remote_living_room.on_brightness_up_click(self.brightness_up)
-        devices.remote_living_room.on_brightness_down_click(self.brightness_down)     
+        devices.remote_living_room.on_brightness_down_click(self.brightness_down)
+        devices.remote_living_room.on_arrow_left_hold(self.arrow_hold)
+        devices.remote_living_room.on_arrow_right_hold(self.arrow_hold)
 
     def brightness_up(self):
         if self.scene_handler.get_scene() == 'ON' or self.scene_handler.get_scene() == 'AMBIENT':
@@ -60,3 +62,9 @@ class LivingRoom():
             b = int(max(0, b - 254 / 10))
             devices.light_living_room_top.brightness(b)
             devices.light_living_room_shelf.brightness(b)
+
+    def arrow_hold(self):
+        if devices.plug_shelf.is_off():
+            devices.plug_shelf.on()
+        else:
+            devices.plug_shelf.off()

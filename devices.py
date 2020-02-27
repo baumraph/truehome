@@ -17,11 +17,5 @@ switch_living_room = mqtt_devices.IKEA.TRADFRI_SWITCH('zigbee2mqtt/LRSwitch')
 remote_living_room = mqtt_devices.IKEA.TRADFRI_REMOTE('zigbee2mqtt/LRRemote')
 
 # Plugs
-plug_living_room = mqtt_devices.OSRAM.OSRAM_SMART_PLUG('zigbee2mqtt/LRPlug', observer.publish)
-
-# # Sensors
-# living_room_sensor = mqtt_devices.Xiaomi.Temperature_Humidity_Sensor('zigbee2mqtt/Living Room Sensor')
-# bathroom_sensor = mqtt_devices.Xiaomi.Temperature_Humidity_Sensor('zigbee2mqtt/Bath Sensor')
-# balcony_sensor = mqtt_devices.Xiaomi.Temperature_Humidity_Sensor('zigbee2mqtt/Balcony Sensor')
-# motion_sensor = mqtt_devices.Xiaomi.Motion_Sensor('zigbee2mqtt/Motion Sensor')
-# front_door = mqtt_devices.Xiaomi.Door_Window_Contact_Sensor('zigbee2mqtt/Front Door')
+plug_window = mqtt_devices.OSRAM.OSRAM_SMART_PLUG('zigbee2mqtt/LRPlugWindow', observer.publish)
+plug_shelf = mqtt_devices.OSRAM.OSRAM_SMART_PLUG('zigbee2mqtt/LRPlugShelf', observer.publish)

@@ -8,13 +8,6 @@ all = [
     devices.light_bedroom_top,
     devices.light_living_room_top,
     devices.light_living_room_shelf,
-    devices.plug_living_room
+    devices.plug_window,
+    devices.plug_shelf
 ]
-
-# lights = [
-#     devices.left_desk_light,
-#     devices.right_desk_light,
-#     devices.shelves_light,
-#     devices.corner_light,
-#     devices.bed_light
-# ]

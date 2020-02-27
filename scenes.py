@@ -8,7 +8,8 @@ class Scene_LR_OFF(Scene):
     def run(self):
         devices.light_living_room_top.off()
         devices.light_living_room_shelf.off()
-        devices.plug_living_room.off()
+        devices.plug_window.off()
+        devices.plug_shelf.off()
 
 
 class Scene_LR_ON(Scene):
