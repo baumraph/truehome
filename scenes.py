@@ -22,7 +22,7 @@ class Scene_LR_ON(Scene):
 
         devices.light_living_room_shelf.on()
         devices.light_living_room_top.on()
-        devices.plug_living_room.off()
+        devices.plug_window.off()
 
 
 class Scene_LR_AMBIENT(Scene):
@@ -35,7 +35,7 @@ class Scene_LR_AMBIENT(Scene):
 
         devices.light_living_room_top.on()
         devices.light_living_room_shelf.on()
-        devices.plug_living_room.off()
+        devices.plug_window.off()
 
 
 class Scene_LR_WINDOW(Scene):
@@ -43,7 +43,7 @@ class Scene_LR_WINDOW(Scene):
         Scene.__init__(self, 'WINDOW')
 
     def run(self):
-        devices.plug_living_room.on()
+        devices.plug_window.on()
         devices.light_living_room_top.off()
         devices.light_living_room_shelf.off()
 
