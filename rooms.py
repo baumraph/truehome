@@ -40,9 +40,7 @@ class LivingRoom():
         self.scene_handler.add_scene(scenes.Scene_LR_AMBIENT())
         self.scene_handler.add_scene(scenes.Scene_LR_WINDOW())
 
-        devices.switch_living_room.on_on(lambda: self.scene_handler.set_scene('ON'))
-        devices.switch_living_room.on_off(self.all_off)
-
+        devices.switch_living_room.on_on(self.toggle_all)
         devices.remote_living_room.on_arrow_left_click(lambda: self.scene_handler.prev_scene())
         devices.remote_living_room.on_arrow_right_click(lambda: self.scene_handler.next_scene())
         devices.remote_living_room.on_toggle(self.scene_handler.toggle)
@@ -51,15 +49,22 @@ class LivingRoom():
         devices.remote_living_room.on_brightness_up_click(self.brightness_up)
         devices.remote_living_room.on_brightness_down_click(self.brightness_down)
 
+    def toggle_all(self):
+        if self.scene_handler.get_scene() == 'OFF':
+            self.scene_handler.set_scene('ON')
+        else:
+            self.scene_handler.set_scene('OFF')
+            devices.plug_shelf.off()
+
     def brightness_up(self):
-        if self.scene_handler.get_scene() == 'ON' or self.scene_handler.get_scene() == 'AMBIENT':
+        if self.scene_handler.get_scene() not in ['WINDOW', 'OFF']:
             b = devices.light_living_room_top.brightness()
             b = int(min(254, b + 254 / 10))
             devices.light_living_room_top.brightness(b)
             devices.light_living_room_shelf.brightness(b)
 
     def brightness_down(self):
-        if self.scene_handler.get_scene() == 'ON' or self.scene_handler.get_scene() == 'AMBIENT':
+        if self.scene_handler.get_scene() not in ['WINDOW', 'OFF']:
             b = devices.light_living_room_top.brightness()
             b = int(max(0, b - 254 / 10))
             devices.light_living_room_top.brightness(b)
@@ -70,7 +75,3 @@ class LivingRoom():
             devices.plug_shelf.on()
         else:
             devices.plug_shelf.off()
-
-    def all_off(self):
-        self.scene_handler.set_scene('OFF')
-        devices.plug_shelf.off()
