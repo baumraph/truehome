@@ -12,9 +12,7 @@ class Bedroom():
         self.scene_handler.add_scene(scenes.Scene_BR_PURPLE())
         self.scene_handler.add_scene(scenes.Scene_BR_BLUE())
 
-        devices.switch_bedroom.on_on(lambda: self.scene_handler.set_scene('ON'))
-        devices.switch_bedroom.on_off(lambda: self.scene_handler.set_scene('OFF'))
-
+        devices.switch_bedroom.on_on(self.scene_handler.toggle)
         devices.remote_bedroom.on_arrow_left_click(lambda: self.scene_handler.prev_scene())
         devices.remote_bedroom.on_arrow_right_click(lambda: self.scene_handler.next_scene())
         devices.remote_bedroom.on_toggle(self.scene_handler.toggle)
